@@ -1,30 +1,32 @@
-from flask import Flask, render_template, request, jsonify
 import joblib
+import numpy as np
+import pickle
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
+model = pickle.load(open('templates/Model.pkl', 'rb'))
+
+
 @app.route("/")
 def HelloWorld():
-    return render_template('home.html')
+    return render_template('index.html')
+
 
 @app.route("/predict", methods=['POST'])
 def predict():
-    categorical_mapping = {
-        "Yes": 1,
-        "No": 0,
-        "Male": 1,
-        "Female": 0,
-    }
+    int_data = [int(x) for x in request.form.values()]
+    data = [np.array(int_data)]
+    pred = model.predict(data)
+    if pred[0] == 1:
+        return render_template(
+            "index.html",
+            prediction_text="The result is {} - DIABETES POSITIVE".format(pred))
+    elif pred[0] == 0:
+        return render_template(
+            "index.html",
+            prediction_text="The result is {} - DIABETES NEGATIVE".format(pred))
 
-    data = request.json
-    model = joblib.load('Random_Forest_Model.pkl')
-
-    # Convert categorical data to numerical using the mapping
-    numerical_data = {key: categorical_mapping.get(value, value) for key, value in data.items()}
-
-    # Make a prediction
-    prediction = model.predict([list(numerical_data.values())])
-
-    return jsonify({"prediction": prediction[0]})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=8080)
+    app.run(debug=True)
+    # print(predict())

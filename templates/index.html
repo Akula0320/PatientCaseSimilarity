@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .form-container {
+        width: 800px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+      }
+      .prediction_text {
+        text-align: center;
+        grid-column: span 4; /* Make the text span all 4 columns */
+        border: 2px solid gray;
+        padding: 5px 0;
+        font-size: large;
+        border-radius: 4px;
+
+      }
+      .form-label {
+        font-weight: bold;
+        color: #333333;
+      }
+      .form-input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .form-select {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .form-button {
+        grid-column: span 4;
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .heading{
+        grid-column: span 4;
+        text-align: center;
+        color: black;
+        border-bottom: 3px solid red;
+      }
+      .form-button:hover {
+        background-color: #45a049;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div>
+      <form class="form-container" action="/predict" method="POST">
+
+        <div class="form-label heading" id="heading">
+          <h1>Diabetes Prediction</h1>
+        </div>
+
+        <div class="form-label" for="age">Age (Numeric):</div>
+        <input class="form-input" type="number" id="age" name="age" min="0" placeholder="Enter Age"/>
+
+        <div class="form-label" for="gender">Gender:</div>
+        <select class="form-select" id="gender" name="gender">
+          <option value="#">NaN</option>
+          <option value="1">Male</option>
+          <option value="0">Female</option>
+        </select>
+
+        <div class="form-label" for="polyuria">Polyuria:</div>
+        <select class="form-select" id="polyuria" name="polyuria">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="polydipsia">Polydipsia:</div>
+        <select class="form-select" id="polydipsia" name="polydipsia">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="sudden-weight-loss">
+          Sudden Weight Loss:
+        </div>
+        <select
+          class="form-select"
+          id="sudden-weight-loss"
+          name="sudden-weight-loss"
+        >
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="weakness">Weakness:</div>
+        <select class="form-select" id="weakness" name="weakness">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="polyphagia">Polyphagia:</div>
+        <select class="form-select" id="polyphagia" name="polyphagia">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="genital-thrush">Genital Thrush:</div>
+        <select class="form-select" id="genital-thrush" name="genital-thrush">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="visual-blurring">Visual Blurring:</div>
+        <select class="form-select" id="visual-blurring" name="visual-blurring">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="itching">Itching:</div>
+        <select class="form-select" id="itching" name="itching">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="irritability">Irritability:</div>
+        <select class="form-select" id="irritability" name="irritability">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="delayed-healing">Delayed Healing:</div>
+        <select class="form-select" id="delayed-healing" name="delayed-healing">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="partial-paresis">Partial Paresis:</div>
+        <select class="form-select" id="partial-paresis" name="partial-paresis">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="muscle-stiffness">Muscle Stiffness:</div>
+        <select
+          class="form-select"
+          id="muscle-stiffness"
+          name="muscle-stiffness"
+        >
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="alopecia">Alopecia:</div>
+        <select class="form-select" id="alopecia" name="alopecia">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label" for="obesity">Obesity:</div>
+        <select class="form-select" id="obesity" name="obesity">
+          <option value="#">NaN</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+
+        <div class="form-label prediction_text" id="prediction_text">
+          {{ prediction_text }}
+        </div>
+        <input id = "btn" class="form-button" type="submit" />
+      </form>
+    </div>
+  </body>
+</html>
